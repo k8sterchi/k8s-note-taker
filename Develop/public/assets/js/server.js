@@ -1,32 +1,40 @@
-// Import required modules
-// IMPORT express
-// IMPORT path
-// IMPORT fs
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
 
-// Create an instance of the Express app
-// app = CREATE express app
-// PORT = GET process.env.PORT or use 3000
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Set up middleware
-// USE express.urlencoded
-// USE express.json
-// USE serve static assets from 'public' directory
+// Middleware to parse request body as JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Define API routes
+// Serve static assets (HTML, CSS, JavaScript)
+app.use(express.static('public'));
 
-// Route to get notes
-// GET '/api/notes'
-//   READ notes from 'db.json'
-//   RETURN notes as JSON
+// API routes
 
-// Route to save a new note
-// POST '/api/notes'
-//   READ newNote from request body
-//   READ existing notes from 'db.json'
-//   ADD newNote to notes
-//   WRITE notes to 'db.json'
-//   RETURN newNote as JSON
+// Get notes
+app.get('/api/notes', (req, res) => {
+  const notes = JSON.parse(fs.readFileSync('db.json', 'utf8'));
+  res.json(notes);
+});
+
+// Save a new note
+app.post('/api/notes', (req, res) => {
+  const newNote = req.body;
+  const notes = JSON.parse(fs.readFileSync('db.json', 'utf8'));
+  notes.push(newNote);
+  fs.writeFileSync('db.json', JSON.stringify(notes));
+  res.json(newNote);
+});
+
+// Route to serve the front-end interface
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Start the server
-// LISTEN to PORT
-//   PRINT "Server is running on port PORT"
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
