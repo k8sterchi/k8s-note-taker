@@ -29,7 +29,7 @@ app.post('/api/notes', (req, res) => {
   res.json(newNote);
 });
 
-// Route to serve the front-end interface
+// Route to serve the front-end interface (index.html)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
