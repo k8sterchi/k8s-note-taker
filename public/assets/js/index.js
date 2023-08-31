@@ -71,7 +71,11 @@ const handleNoteSave = () => {
     title: noteTitle.value,
     text: noteText.value,
   };
-  saveNote(newNote).then(() => {
+  saveNote(newNote).then((response) => {
+    return response.json();
+  }).then((savedNote) => {
+    // Include the assigned 'id' in the activeNote
+    activeNote = savedNote;
     getAndRenderNotes();
     renderActiveNote();
   });
