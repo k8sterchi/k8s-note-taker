@@ -5,19 +5,14 @@ An application that can be used to write and save notes. It uses an Express.js b
 
 The application’s front end was souced from [this repository](https://github.com/coding-boot-camp/miniature-eureka). I built the back end, connected it to the front end and deployed the entire application to Heroku.
 
-[Click Here](GITHUB LINK HERE) to visit my GitHub repository.
+[Click Here](https://github.com/k8sterchi/k8s-note-taker) to visit my GitHub repository.
 
 ## Table of Contents
-- [Installation](#installation)
 - [User Story](#user-story)
 - [Acceptance Criteria](#acceptance-criteria)
-- [Preview](#preview)
-- [Demo](#demo)
 - [Resources](#resources)
 - [License](#license)
 
-## Installation
-INSTALL INSTRUCTIONS HERE
 
 ## User Story
 AS A small business owner
@@ -53,23 +48,13 @@ WHEN I click on the Write icon in the navigation at the top of the page
 
 THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
 
-## Preview
-The following images show the web application's appearance and functionality:
-
-![alt text](PATH TO SCREENSHOT HERE)
-
-![alt text](PATH TO SCREENSHOT HERE)
-
-Image below shows an example of what this application generates:
-![alt text](PATH TO SCREENSHOT HERE)
-
-## Demo
-TODO: add video link demo here
 
 ## Resources:
 [Source of STARTER CODE](https://github.com/coding-boot-camp/miniature-eureka)
 
 pair programming, MDN and chatGPT continue to be the most helpful. 
+
+I will continue to resolve issues with this application. 
 
 ## License:
 ![License](https://img.shields.io/badge/License-MIT%20License-brightgreen)  
