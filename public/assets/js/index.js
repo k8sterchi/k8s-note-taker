@@ -12,17 +12,14 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-// Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
 };
 
-// Hide an element
 const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
 const getNotes = () =>
@@ -74,7 +71,6 @@ const handleNoteSave = () => {
   saveNote(newNote).then((response) => {
     return response.json();
   }).then((savedNote) => {
-    // Include the assigned 'id' in the activeNote
     activeNote = savedNote;
     getAndRenderNotes();
     renderActiveNote();
@@ -118,13 +114,13 @@ const handleRenderSaveBtn = () => {
 
 const handleNoteClick = (e) => {
   const clickedNote = JSON.parse(e.currentTarget.getAttribute('data-note'));
-  activeNote = { ...clickedNote }; // Copy the clicked note to the activeNote object
+  console.log('Clicked Note:', clickedNote); // Log the clicked note
+  activeNote = clickedNote;
   renderActiveNote();
   handleRenderSaveBtn();
 };
 
-const renderNoteList = async (notes) => {
-  let jsonNotes = await notes.json();
+const renderNoteList = (jsonNotes) => {
   if (window.location.pathname === '/notes') {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
@@ -158,7 +154,7 @@ const renderNoteList = async (notes) => {
   };
 
   if (jsonNotes.length === 0) {
-    noteListItems.push(createLi({ title: 'No saved Notes' }));
+    noteListItems.push(createLi({ id: '', title: 'No saved Notes' }));
   }
 
   jsonNotes.forEach((note) => {
@@ -173,7 +169,22 @@ const renderNoteList = async (notes) => {
   }
 };
 
-const getAndRenderNotes = () => getNotes().then(renderNoteList);
+const getAndRenderNotes = () => {
+  getNotes()
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(jsonNotes => {
+      console.log('API Response:', jsonNotes);
+      renderNoteList(jsonNotes);
+    })
+    .catch(error => {
+      console.error('Error fetching notes:', error);
+    });
+};
 
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
